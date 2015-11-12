@@ -18,4 +18,5 @@ This solution was designed to be fairly simple to understand and readable, and l
 
 Some assumptions were also made in order to save time. The sudoku board creation expects a nested array, and no validation is done to make sure that the input is correct. The board is also fixed to a 9x9 sudoku board, and would be a bit painful to update, since indices and offsets are based off of the board.
 
-## That's all, folks!
+That's all, folks!
+ 
