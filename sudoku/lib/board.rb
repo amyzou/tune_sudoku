@@ -6,36 +6,40 @@ module Sudoku
 
     SUDOKU_SIZE = POSSIBLE_VALUES.length.freeze
 
-    attr_reader :values
+    attr_reader :matrix, :values
+
+    def initialize(matrix)
+      @matrix = matrix
+      @values = matrix.flatten
+    end
 
     class InvalidBoardError < TypeError; end
 
     # A board is valid if it is the right size (SUDOKU_SIZE rows and columns),
     # has only POSSIBLE_VALUES, and has no duplicates in each row, col, or square.
     def valid?
-      return false if values.length != SUDOKU_SIZE && !values.map { |row| row.length == SUDOKU_SIZE }.reduce(:&)
-      return false unless (values.flatten.compact.uniq - POSSIBLE_VALUES).empty?
+      return false if matrix.length != SUDOKU_SIZE && !matrix.map { |row| row.length == SUDOKU_SIZE }.reduce(:&)
+      return false unless (values.compact.uniq - POSSIBLE_VALUES).empty?
       return !duplicate_values?
     end
 
     def row(i)
-      values[i]
+      matrix[i]
     end
 
     def col(i)
-      values.map { |row| row[i] }
+      matrix.map { |row| row[i] }
     end
 
     SQUARE_OFFSET = [0, 3, 6, 27, 30, 33, 54, 57, 60].freeze
     SQUARE_INDEX  = [0, 1, 2, 9, 10, 11, 18, 19, 20].freeze
     def square(i)
-      flattened = values.flatten
       offset = SQUARE_OFFSET[i]
-      SQUARE_INDEX.map { |index| flattened[offset + index] }
+      SQUARE_INDEX.map { |index| values[offset + index] }
     end
 
     def to_string
-      values.each { |row| puts row.join(',') }
+      matrix.each { |row| puts row.join(',') }
     end
 
     private
