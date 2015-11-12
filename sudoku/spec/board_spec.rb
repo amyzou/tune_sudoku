@@ -9,8 +9,8 @@ describe Sudoku::Board do
     end
 
     it 'should be falsey when matrix contains invalid values' do
-      board = empty_board.tap { |board| board[0][0] = 'x' }
-      expect(described_class.new(board).valid?).to be_falsey
+      board = empty_board.tap { |board| board.set(0,0,'x') }
+      expect(board.valid?).to be_falsey
     end
 
     it 'should be falsey when matrix contains duplicate values' do
@@ -19,11 +19,11 @@ describe Sudoku::Board do
     end
 
     it 'should be truthy with an empty matrix' do
-      expect(described_class.new(empty_board).valid?).to be_truthy
+      expect(empty_board.valid?).to be_truthy
     end
 
     it 'should be valid with a valid matrix' do
-      expect(described_class.new(VALID_BOARD).valid?).to be_truthy
+      expect(complete_board.valid?).to be_truthy
     end
 
   end

@@ -38,8 +38,20 @@ module Sudoku
       SQUARE_INDEX.map { |index| values[offset + index] }
     end
 
-    def to_string
-      matrix.each { |row| puts row.join(',') }
+    def dup
+      self.class.new(Marshal.load(Marshal.dump(matrix)))
+    end
+
+    def set(row, col, value)
+      matrix[row][col] = value
+      values[row * SUDOKU_SIZE + col] = value
+    end
+
+    def to_s
+      return matrix.map do |row|
+        row = row.map { |e| e || '-' }
+        row.join(',')
+      end.join("\n")
     end
 
     private
