@@ -1,5 +1,5 @@
-require_relative 'board'
-require_relative 'solver'
+require_relative 'sudoku/board'
+require_relative 'sudoku/solver'
 
 module Sudoku
 
