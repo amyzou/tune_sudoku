@@ -6,20 +6,25 @@ module Sudoku
     # solutions. Then, solve the new board created.
     # If there are no empty spaces, and the board is valid, return board.
     # If there are no possible solutions to an empty square, raise
-    # NoSolutionError.
+    # NoSolutionError. This error is caught and the next guess is tried.
     def solve(board)
-      raise InvalidBoardError.new unless board.valid?
+      raise InvalidBoardError unless board.valid?
 
       unsolved_spaces = empty_spaces(board)
       return board if unsolved_spaces.empty?
 
       row, col, possible_solutions = easiest_solution_attempt(board, unsolved_spaces)
-      raise NoSolutionError.new if possible_solutions.empty?
+      raise NoSolutionError if possible_solutions.empty?
 
       possible_solutions.each do |possible_solution|
         new_board = board.dup.tap { |board| board.set(row, col, possible_solution) }
-        return solve(new_board)
+        begin
+          return solve(new_board)
+        rescue
+          next
+        end
       end
+      raise NoSolutionError
     end
 
     class NoSolutionError < StandardError; end
