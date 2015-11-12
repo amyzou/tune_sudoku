@@ -11,7 +11,7 @@ module Sudoku
       raise InvalidBoardError.new unless board.valid?
       unsolved_spaces = empty_spaces(board)
       return board if unsolved_spaces.empty?
-      row, col, possible_solutions = unsolved_spaces.map { |row, col| [row, col, possible_values(board, row, col)] }.sort_by { |value| value[2].length }.first
+      row, col, possible_solutions = easiest_solution_attempt()
 
       raise NoSolutionError.new if possible_solutions.empty?
       possible_solutions.each do |possible_solution|
@@ -39,6 +39,15 @@ module Sudoku
       square_i = 3 * (row / 3) + ((col / 3) % 3)
       Sudoku::POSSIBLE_VALUES -
         [board.row(row), board.col(col), board.square(square_i)].flatten.uniq
+    end
+
+    # Go through all of the nil values and get the list of possible values.
+    # Sort by num of possible values, and return the one with the least.
+    def easiest_solution_attempt(unsolved_spaces)
+      unsolved_spaces
+        .map { |row, col| [row, col, possible_values(board, row, col)] }
+        .sort_by { |value| value[2].length }
+        .first
     end
 
   end
