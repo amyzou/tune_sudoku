@@ -31,6 +31,9 @@ module Sudoku
       matrix.map { |row| row[i] }
     end
 
+    # If the matrix is flattened, the SQUARE_INDEX represents the
+    # start of each square. Each value of the square is offset
+    # from the index by the SQUARE_OFFSET.
     SQUARE_OFFSET = [0, 3, 6, 27, 30, 33, 54, 57, 60].freeze
     SQUARE_INDEX  = [0, 1, 2, 9, 10, 11, 18, 19, 20].freeze
     def square(i)
@@ -47,7 +50,7 @@ module Sudoku
       values[row * SUDOKU_SIZE + col] = value
     end
 
-    def to_s
+    def inspect
       return matrix.map do |row|
         row = row.map { |e| e || '-' }
         row.join(',')
