@@ -9,11 +9,13 @@ module Sudoku
     # NoSolutionError.
     def solve(board)
       raise InvalidBoardError.new unless board.valid?
+
       unsolved_spaces = empty_spaces(board)
       return board if unsolved_spaces.empty?
-      row, col, possible_solutions = easiest_solution_attempt(board, unsolved_spaces)
 
+      row, col, possible_solutions = easiest_solution_attempt(board, unsolved_spaces)
       raise NoSolutionError.new if possible_solutions.empty?
+
       possible_solutions.each do |possible_solution|
         new_board = board.dup.tap { |board| board.set(row, col, possible_solution) }
         return solve(new_board)
