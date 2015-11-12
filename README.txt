@@ -1,6 +1,6 @@
 Sudoku solving!
 
-My algorithm solves sudokus the way I do it, when I am working on a puzzle. It first raises an InvalidBoardError if the board it is given is not a valid Sudoku board. Then, it recursively looks for remaining empty spots on the board, and then chooses the easiest spot to solve, which is the spot with the least possible values that can be validly inserted into the board. It tries to solve the new board with the guess added to the board. When it reaches no more empty spots + a valid board, the board is considered solved and the value is returned.
+In order to solve a sudoku, the algorithm first checks for a valid Sudoku board, and raises an InvalidBoardError if the board is not valid. Then, it recursively looks for remaining empty spots on the board, and then chooses the easiest spot to solve, which is the spot with the least possible values that can be validly inserted into the board. It tries to solve the new board with the guess added to the board. When it reaches no more empty spots + a valid board, the board is considered solved and the value is returned.
 
 If, at any point, a board ends up with a space that has no valid values, then an exception is thrown. This exception is caught and the next guess is tried. If all guess are tried and there is still no valid and completed board, then the board is deemed unsolvable and the exception is propagated up.  
 
@@ -14,7 +14,7 @@ The worst runtime is O((n^2)!n^3). In this case, m is n^2, as the entire board i
 
 Thoughts and considerations
 
-This solution was designed to be fairly simple to understand and readable. It could be optimized, but since the sudoku board is constrained on size, readability/maintainbility seemed more important than small optimizations in speed. One optimization, for example, would be to keep track of the spaces throughout and update the possible guesses for each one as guesses are made, instead of searching the entire grid for all the empty spaces again. This would require far more complex algorithm though, and would likely be harder to understand. 
+This solution was designed to be fairly simple to understand and readable, and largely reflects how I approach Sudoku when I need to do one myself. It could be optimized, but since the sudoku board is constrained on size, readability/maintainbility seemed more important than small optimizations in speed. One optimization, for example, would be to keep track of the spaces throughout and update the possible guesses for each one as guesses are made, instead of searching the entire grid for all the empty spaces again. This would require far more complex algorithm though, and would likely be harder to understand. 
 
 Some assumptions were also made in order to save time. The sudoku board creation expects a nested array, and no validation is done to make sure that the input is correct. The board is also fixed to a 9x9 sudoku board, and would be a bit painful to update, since indices and offsets are based off of the board.
 
