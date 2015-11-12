@@ -1,3 +1,3 @@
-def factorial(n)
-  (1..n).reduce(&:*) || 1
+def factorial(x)
+  (1..x).reduce(&:*) || 1
 end
