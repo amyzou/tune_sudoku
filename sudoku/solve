@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require_relative 'lib/sudoku'
+
+input = ARGF.each_with_object([]) do |line, input_arr|
+  input_arr << line
+end
+
+matrix = input.map do |row|
+  row.split(',').map do |num|
+    num = num.strip
+    num == '-' ? nil : num.to_i
+  end
+end
+
+puts Sudoku::Solver.new.solve(Sudoku::Board.new(matrix)).inspect
+
