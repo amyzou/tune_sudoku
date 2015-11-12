@@ -30,23 +30,40 @@ describe Sudoku::Solver do
 
   end
 
-  describe 'empty_spaces' do
+  describe 'empty spaces' do
 
-    it 'should return all indices and all possible volues for an empty board' do
+    it 'should return all indices for an empty board' do
       empty_spaces = solver.send(:empty_spaces, empty_board)
       expect(empty_spaces.length).to eq(Sudoku::SUDOKU_SIZE * Sudoku::SUDOKU_SIZE)
-      expect(empty_spaces.map { |s| s[2] }.uniq.flatten).to eq(Sudoku::POSSIBLE_VALUES)
     end
 
     it 'should return the missing space and possible value' do
       empty_spaces = solver.send(:empty_spaces, solvable_board)
       expect(empty_spaces.length).to eq(1)
-      expect(empty_spaces.map { |s| s[2] }.uniq.flatten).to eq([5])
     end
 
     it 'should return an empty array with a full board' do
       empty_spaces = solver.send(:empty_spaces, complete_board)
       expect(empty_spaces).to eq([])
+    end
+
+  end
+
+  describe 'possible values' do
+
+    it 'should return all possible volues for an empty board' do
+      possible_values = solver.send(:possible_values, empty_board, 0, 0)
+      expect(possible_values).to eq(Sudoku::POSSIBLE_VALUES)
+    end
+
+    it 'should return the missing value' do
+      possible_values = solver.send(:possible_values, solvable_board, 1, 1)
+      expect(possible_values).to eq([5])
+    end
+
+    it 'should return an empty array with a full board' do
+      possible_values = solver.send(:possible_values, complete_board, 1, 1)
+      expect(possible_values).to eq([])
     end
 
   end

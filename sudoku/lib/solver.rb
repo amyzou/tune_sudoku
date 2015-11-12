@@ -9,10 +9,10 @@ module Sudoku
     # NoSolutionError.
     def solve(board)
       raise InvalidBoardError.new unless board.valid?
-      unsolved_spaces = empty_spaces(board).sort_by { |value| value[2].length }
+      unsolved_spaces = empty_spaces(board)
       return board if unsolved_spaces.empty?
+      row, col, possible_solutions = unsolved_spaces.map { |row, col| [row, col, possible_values(board, row, col)] }.sort_by { |value| value[2].length }.first
 
-      row, col, possible_solutions = unsolved_spaces.first
       raise NoSolutionError.new if possible_solutions.empty?
       possible_solutions.each do |possible_solution|
         new_board = board.dup.tap { |board| board.set(row, col, possible_solution) }
@@ -24,14 +24,13 @@ module Sudoku
 
     private
 
-    # Gets an array of positions of nils in the matrix, as well
-    # as the possible values that would be valid in that spot.
+    # Gets an array of positions of nils in the matrix.
     def empty_spaces(board)
       board.values.map.with_index do |value, i|
         if value.nil?
           row = i / 9
           col = i % 9
-          [row, col, possible_values(board, row, col)]
+          [row, col]
         end
       end.compact
     end
