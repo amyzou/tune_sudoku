@@ -1,0 +1,37 @@
+1. O(n) and O(n^2) are examples of Big O notation, which is used to describe 
+the runtime of an algorithm as the input grows very large. O(n) is linear, 
+which means that the runtime grows at a rate that is directly proportionate 
+to the input. O(n^2) means that the runtime grows at a rate that is directly 
+proportionate to the square of the input.
+
+2. Quicksort is a sorting algorithm that uses a divide-and-conquer strategy. 
+With each recursive call, quicksort first chooses a pivot element in the 
+array. It then iterates through the array, partitioning the elements into 
+those that are smaller than and those that are bigger than the pivot element. 
+Quicksort is called upon the two smaller arrays, and continues until all 
+subproblems have smaller elements to the left and bigger elements to the 
+right, at which point it is fully sorted. On average, sorting with quicksort 
+is O(nlog(n)) for runtime, where n is the size of the array.
+
+3. A C pointer is a variable that "points" to a location in memory. It 
+contains the memory address for another variable of whatever type the pointer 
+is. This means that an int pointer will contain an address of an int. A 
+pointer can then be dereferenced to access the contents at the address it 
+contains. Dereferencing an int pointer will give the stored int at that 
+location.
+
+4. Stack memory is used for parameters and local variables. A stack is a 
+first in first out data structure, so as a function creates local variables, 
+they are pushed onto the stack. Once the function exists, these variables are 
+popped off the stack and are no longer accessible. The stack is managed by 
+the CPU, and as such is very fast and memory management is taken care of. In 
+comparison, the heap is used for dynamically allocated variables. Allocated 
+memory must then be deallocated later, as the CPU does not manage this 
+memory. The heap is a much larger size of memory with slower access and 
+necessary memory management.
+
+5. A garbage collector is meant to manage memory for the developer. When 
+objects in memory are no longer in use or accessible, then the garbage 
+collector reclaims the memory space so that it can be used later. Using 
+garbage collection can eliminate some bugs that are the result of manual 
+memory management, but usually at the cost of performance.
