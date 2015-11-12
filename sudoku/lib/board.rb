@@ -18,7 +18,7 @@ module Sudoku
     # A board is valid if it is the right size (SUDOKU_SIZE rows and columns),
     # has only POSSIBLE_VALUES, and has no duplicates in each row, col, or square.
     def valid?
-      return false if matrix.length != SUDOKU_SIZE && !matrix.map { |row| row.length == SUDOKU_SIZE }.reduce(:&)
+      return false if matrix.length != SUDOKU_SIZE && matrix.any? { |row| row.length != SUDOKU_SIZE }
       return false unless (values.compact.uniq - POSSIBLE_VALUES).empty?
       return !duplicate_values?
     end
